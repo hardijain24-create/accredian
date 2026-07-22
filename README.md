@@ -1,105 +1,547 @@
 # Accredian Enterprise Landing Page Clone
 
-This repository contains a premium, high-fidelity partial clone of the Accredian Enterprise landing page ([enterprise.accredian.com](https://enterprise.accredian.com/)), reinterpreted with a modern, warm-cream editorial SaaS visual identity. This project is submitted as part of the evaluation for the **Full Stack Developer Intern** role.
+A premium, high-fidelity recreation of the **Accredian Enterprise** landing page, reimagined with a modern editorial SaaS aesthetic while preserving the original information architecture and user experience.
 
-### Deployed URL & Repository
-*   **Live Deployed Link**: *[Insert Deployed Vercel URL here]*
-*   **GitHub Repository**: https://github.com/hardijain24-create/accredian
+This project was built as part of the **Full Stack Developer Intern** evaluation and focuses on creating a production-quality frontend with smooth interactions, polished animations, responsive layouts, and clean component architecture.
 
 ---
 
-## 🚀 Tech Stack
-*   **Framework**: Next.js 14+ (App Router)
-*   **Language**: TypeScript
-*   **Styling**: Tailwind CSS (Custom theme variables, Light-only Mode)
-*   **Animations**: Framer Motion (Viewport transitions, scroll-progress, custom coordinate ripples)
-*   **Icons**: Lucide React
-*   **Lead Store**: Next.js API Routes (`/api/lead` and `/api/leads`) with local JSON file persistence.
+## 🔗 Live Demo
+
+- **Live Website:** https://your-vercel-url.vercel.app
+- **GitHub Repository:** https://github.com/your-username/accredian-enterprise-clone
+
+> Replace the above URLs with your actual deployment and repository links.
 
 ---
 
-## ✨ Features Implemented
+# 📖 Overview
 
-1.  **Warm-Cream Design System**: Swapped standard glassmorphism layouts for a warm cream backdrop (`#FAFAF8` base) paired with near-black navy headings (`#14161A`), medium-gray body text (`#6B7280`), and section-scoped blurred background accent blobs.
-2.  **Page Loading Preloader**: On page mount, displays an elegant logo spinning mark and a progress loader bar (completing in 1s) before fading out to reveal the main landing page.
-3.  **Floating Glassmorphic Header**: 
-    *   Frosted glass surface with inset highlights and soft shadows.
-    *   Ambient "breathing" gradient glow pulsing slowly behind the pill container.
-    *   Smooth height shrinkage and padding interpolation on scroll.
-    *   360° logo hover rotation and center-outward underline drawing on nav links.
-    *   **Portaled Command Palette (⌘K)**: A fully keyboard-navigable search utility that portals outside the header transforms directly to `document.body` to prevent container clipping.
-4.  **Interactive Hero & Mockup**: Eyebrow label loops with pulse animations. Staggered fade + slide-up text entrance. The product panel mockup scales smoothly from `1` to `1.08` linked to scroll progress and shows a "Scroll to Zoom" hover indicator.
-5.  **Partners Infinite Sliding Marquee**: Smooth, GPU-accelerated client badge slider that pauses on hover.
-6.  **3D Bento Grid Offerings**: Features are laid out in a static bento grid with staggered, 3D scroll tilt-in triggers (`rotateX` 8° → 0°) on viewport entry.
-7.  **Interactive Method Timeline Stepper**: 
-    *   *Desktop*: A horizontal stepper tracking scroll progress. Clicking a step displays active accordion details with a shared-layout transition.
-    *   *Mobile*: Automatically switches to a clean, vertical accordion drawer to prevent layout clutter.
-8.  **Premium CTA Buttons**:
-    *   Primary CTAs styled as solid black pill shapes with white text.
-    *   Flipped specular mirror reflections (`scale-y-[-1] origin-top`) that inherit text sizes and button backgrounds.
-    *   Interactive click ripples expanding dynamically from the exact coordinate clicked.
-    *   Diagonal sheen sweeps on hover.
-9.  **Lead Capture Form**: Form features floating label transitions, live error checks, shake animations on validation failures, drawing SVG checkmarks, and a 14-particle confetti burst on submission.
-10. **Admin Dashboard Console (`/admin`)**: A coordinator console listing total leads, enterprise demand stats, search filters, and query logs.
+Instead of creating a pixel-perfect duplicate, this project takes inspiration from the original Accredian Enterprise landing page and redesigns it using a premium editorial design system.
+
+The objective was to maintain the original structure while significantly improving visual polish, animations, responsiveness, accessibility, and overall user experience.
+
+The landing page has been developed using **Next.js App Router**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**, with an emphasis on reusable components and maintainable architecture.
 
 ---
 
-## 💻 Local Setup & Installation
+# ✨ Features
 
-Follow these steps to run the project locally on your machine:
+## 🎨 Premium Editorial Design System
 
-1.  **Clone the Repository**:
-    ```bash
-    git clone https://github.com/hardijain24-create/accredian.git
-    cd accredian
-    ```
-
-2.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
-
-3.  **Run Development Server**:
-    ```bash
-    npm run dev
-    ```
-    Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
-
-4.  **Static Compilation & Production Build**:
-    Verify TypeScript compilation and package build optimization:
-    ```bash
-    npx tsc --noEmit
-    npm run build
-    ```
+- Warm cream background (`#FAFAF8`)
+- Near-black typography (`#14161A`)
+- Soft neutral gray supporting text
+- Editorial-inspired spacing
+- Glassmorphism surfaces
+- Large rounded cards
+- Section-specific ambient blurred gradients
+- Light mode only
 
 ---
 
-## 🧠 Development Approach
+## ⚡ Elegant Page Preloader
 
-1.  **Visual and Structural Audit**: Performed a full structural audit of the reference site, mapping out the component tree, route parameters, and responsive requirements.
-2.  **Visual System Refinement**: Transitioned from standard layouts to a premium, Gen-Z-forward editorial design (Editorial Serifs, Warm Cream background, navy highlights).
-3.  **Incremental Component Stages**: Built from the foundations up, establishing global styles, core UI primitives (`Button`, `Card`), layout structures, section containers, and finally polishing details section-by-section (Navbar first, then Buttons, and Cards).
-
----
-
-## 🤖 AI Usage & Manual Improvements
-
-As requested, this project was developed using a cooperative workflow combining AI code agents (**Google Antigravity** + **Claude**) with manual, developer-led optimizations.
-
-### Where AI Helped
-*   **Google Antigravity**: Assisted in setting up the project scaffolding, generating Tailwind CSS configurations, writing basic layout sections, managing JSON file APIs, and conducting automated compilation audits.
-*   **Claude**: Consulted for specific cubic-bezier transition curves, CSS sheen transform keyframes, coordinates capture formulas for ripples, and form validation regex patterns.
-
-### What Was Modified or Improved Manually
-*   **Stacking Context Portal Refactoring**: Fixed a bug where fixed-positioned elements rendered inside transformed elements (like Framer Motion wrappers) are clipped by their parent containers. Portaled the command palette search container directly to `document.body` using React `createPortal` to restore correct full-screen rendering.
-*   **Specular Button Mirror Tuning**: Rewrote the reflection sibling container in `Button.tsx`. Instead of rendering standalone text (which didn't look like a real button reflection), cloned the entire button surface style (variant backgrounds, border radius, padding) and flipped it vertically at `origin-top scale-y-[-1]` with custom gradient masks.
-*   **Responsive Breakpoint Corrections**: Raised navigation breakpoints from `md:` (768px) to `lg:` (1024px) and configured fluid padding/gap sizes (`space-x-4 xl:space-x-8`) to prevent nav link overlaps on tablet viewports.
-*   **Reduced-Motion Accessibilities**: Added explicit checks to ensure that all infinite pulsing loops, sheen sweeps, 3D card tilt triggers, and coordinate click ripples bypass execution if the client configuration requests reduced motion.
+- Animated logo spinner
+- Progress loading indicator
+- Smooth fade transition
+- Automatically completes in approximately one second
 
 ---
 
-## 🔮 Future Improvements (With More Time)
-*   **Real Database Integration**: Migrate the local JSON file store to a live database (such as PostgreSQL or MongoDB) integrated via Prisma ORM.
-*   **Secure Admin Authentication**: Add authentication middleware (e.g. NextAuth or Clerk) on the `/admin` dashboard route to protect coordinator inquiry tables.
-*   **Multi-Page Program Details**: Create dynamic subpages (`/programs/[slug]`) mapping detailed syllabi and partners for each upskilling track.
-*   **Inquiry Alert Webhooks**: Integrate Slack/Discord webhook alerts or email services (like Resend) to notify coordinators instantly when a new program audit is requested.
+## 🧊 Floating Glass Header
+
+The navigation bar includes:
+
+- Floating frosted glass effect
+- Ambient breathing glow animation
+- Scroll-based shrinking header
+- Animated navigation underline
+- Logo rotation on hover
+- Sticky positioning
+- Responsive navigation
+
+### Command Palette
+
+A fully keyboard-accessible search modal that includes:
+
+- ⌘ K / Ctrl K shortcut
+- React Portal rendering
+- Keyboard navigation
+- Search filtering
+- Focus management
+
+---
+
+## 🚀 Interactive Hero Section
+
+- Animated eyebrow badge
+- Staggered content entrance
+- Scroll-linked product mockup scaling
+- Hover interactions
+- Smooth motion effects
+- CTA animations
+
+---
+
+## 🤝 Infinite Partner Marquee
+
+- Infinite GPU accelerated animation
+- Hover pause
+- Responsive layout
+- Continuous seamless scrolling
+
+---
+
+## 🧩 3D Bento Grid
+
+Feature cards include:
+
+- Bento layout
+- Scroll-triggered reveal
+- Perspective transforms
+- 3D tilt animation
+- Responsive stacking
+- Motion-safe animations
+
+---
+
+## 📈 Interactive Method Timeline
+
+### Desktop
+
+- Horizontal stepper
+- Active progress tracking
+- Animated accordion
+- Shared layout transitions
+
+### Mobile
+
+- Vertical accordion
+- Touch-friendly interactions
+- Optimized responsive layout
+
+---
+
+## 🎯 Premium CTA Buttons
+
+Custom button component featuring:
+
+- Pill styling
+- Animated sheen sweep
+- Coordinate-based ripple animation
+- Specular reflection
+- Hover lift
+- Reduced-motion support
+
+---
+
+## 📝 Lead Capture Form
+
+Interactive enterprise inquiry form featuring:
+
+- Floating labels
+- Live validation
+- Shake animations
+- SVG checkmark animation
+- Confetti success animation
+- Client-side validation
+- API integration
+
+---
+
+## 📊 Admin Dashboard
+
+Located at:
+
+```
+/admin
+```
+
+Dashboard features include:
+
+- Total lead count
+- Enterprise inquiry statistics
+- Search filters
+- Query logs
+- Local persistence
+
+---
+
+# 🛠 Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Framework | Next.js 14+ (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Animation | Framer Motion |
+| Icons | Lucide React |
+| API | Next.js Route Handlers |
+| Data Storage | Local JSON File |
+| Package Manager | npm |
+
+---
+
+# 📂 Project Structure
+
+```
+app/
+│
+├── admin/
+├── api/
+│   ├── lead/
+│   └── leads/
+│
+├── components/
+│
+├── sections/
+│
+├── hooks/
+│
+├── lib/
+│
+├── public/
+│
+└── styles/
+```
+
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/accredian-enterprise-clone.git
+```
+
+```bash
+cd accredian-enterprise-clone
+```
+
+---
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## Run Development Server
+
+```bash
+npm run dev
+```
+
+Visit
+
+```
+http://localhost:3000
+```
+
+---
+
+## Type Checking
+
+```bash
+npx tsc --noEmit
+```
+
+---
+
+## Production Build
+
+```bash
+npm run build
+```
+
+---
+
+## Start Production Server
+
+```bash
+npm start
+```
+
+---
+
+# 🧠 Development Process
+
+The project was developed incrementally using a component-first approach.
+
+### Phase 1
+
+- Project setup
+- Tailwind configuration
+- Design tokens
+- Typography system
+- Layout primitives
+
+### Phase 2
+
+Core reusable components
+
+- Buttons
+- Cards
+- Containers
+- Sections
+- Navigation
+- Hero
+
+### Phase 3
+
+Interactive sections
+
+- Marquee
+- Bento Grid
+- Timeline
+- Lead Form
+
+### Phase 4
+
+Animations
+
+- Motion choreography
+- Scroll interactions
+- Ripple system
+- Sheen effects
+- Reflections
+
+### Phase 5
+
+Backend
+
+- API routes
+- JSON persistence
+- Admin dashboard
+- Lead management
+
+---
+
+# 🎯 UI & UX Highlights
+
+- Premium editorial SaaS aesthetic
+- Clean typography hierarchy
+- Responsive across all devices
+- Motion-safe animations
+- Reduced motion accessibility
+- Smooth page transitions
+- Consistent spacing system
+- Soft shadows and gradients
+- High readability
+
+---
+
+# ♿ Accessibility
+
+The project includes several accessibility improvements:
+
+- Keyboard navigable components
+- Focus indicators
+- Reduced motion support
+- Semantic HTML
+- Proper heading hierarchy
+- Accessible forms
+- High contrast typography
+
+---
+
+# 🤖 AI Usage
+
+This project was developed using a collaborative workflow between AI-assisted development and manual engineering.
+
+## AI Assistance
+
+### Google Antigravity
+
+Used for:
+
+- Initial project scaffolding
+- Tailwind configuration
+- Component boilerplates
+- API route generation
+- Build validation
+
+### Claude
+
+Used for:
+
+- Motion timing curves
+- Cubic-bezier refinements
+- CSS animation ideas
+- Ripple coordinate calculations
+- Form validation improvements
+
+---
+
+## Manual Engineering
+
+The following parts were implemented or significantly improved manually.
+
+### Command Palette Portal
+
+Resolved stacking context issues by rendering the search modal directly into `document.body` using React Portals, preventing clipping caused by transformed parent containers.
+
+---
+
+### Premium Button Reflection
+
+Completely redesigned the reflection implementation to mirror the actual button surface instead of only reflecting text.
+
+---
+
+### Responsive Navigation
+
+Improved navigation behavior by:
+
+- Adjusting responsive breakpoints
+- Refining spacing
+- Preventing overlap
+- Improving tablet layouts
+
+---
+
+### Motion Accessibility
+
+Added explicit reduced-motion fallbacks for:
+
+- Infinite pulse animations
+- Sheen sweeps
+- Ripple effects
+- Card tilt animations
+- Continuous loops
+
+---
+
+# 📦 API Routes
+
+## Submit Lead
+
+```
+POST /api/lead
+```
+
+Stores enterprise inquiry data inside the local JSON datastore.
+
+---
+
+## Fetch Leads
+
+```
+GET /api/leads
+```
+
+Returns all submitted enterprise inquiries for the admin dashboard.
+
+---
+
+# 🔮 Future Improvements
+
+Given additional development time, the following enhancements would be implemented:
+
+### Database
+
+- PostgreSQL
+- MongoDB
+- Prisma ORM
+
+---
+
+### Authentication
+
+- NextAuth
+- Clerk
+- Protected Admin Dashboard
+
+---
+
+### Dynamic Routing
+
+```
+/programs/[slug]
+```
+
+Detailed pages for every enterprise program.
+
+---
+
+### Notifications
+
+- Resend
+- Slack Webhooks
+- Discord Webhooks
+- Email Notifications
+
+---
+
+### Analytics
+
+- Dashboard Charts
+- Visitor Analytics
+- Conversion Funnel
+- Lead Source Tracking
+
+---
+
+### Performance
+
+- Server-side caching
+- Image optimization
+- Lazy loading
+- Route prefetching
+- Lighthouse optimization
+
+---
+
+# 📈 Learning Outcomes
+
+Through this project I gained hands-on experience with:
+
+- Next.js App Router
+- TypeScript architecture
+- Advanced Tailwind CSS
+- Framer Motion
+- Responsive design
+- Reusable component systems
+- React Portals
+- Route Handlers
+- Animation orchestration
+- UI polish techniques
+- Accessibility best practices
+
+---
+
+# 📄 License
+
+This project was created solely for educational and evaluation purposes.
+
+The original design inspiration belongs to **Accredian**. This repository is **not affiliated with or endorsed by Accredian**.
+
+---
+
+# 👨‍💻 Author
+
+**Neil Borikar**
+
+B.Tech – Artificial Intelligence & Data Science
+
+- GitHub: https://github.com/your-username
+- LinkedIn: https://linkedin.com/in/your-profile
+
+---
+
+## ⭐ Acknowledgements
+
+- Accredian for the original design inspiration
+- Next.js
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- Vercel
+
+---
+
+> **Note:** This project is intended solely as a frontend engineering assessment. It recreates portions of the Accredian Enterprise landing page while introducing an original visual identity and enhanced user experience.

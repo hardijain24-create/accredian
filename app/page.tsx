@@ -9,6 +9,7 @@ import { WhyUs } from "@/components/WhyUs";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { Testimonials } from "@/components/Testimonials";
 import { LeadForm } from "@/components/LeadForm";
+import { RoiCalculator } from "@/components/RoiCalculator";
 import { Chatbot } from "@/components/Chatbot";
 import { Footer } from "@/components/Footer";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -93,6 +94,7 @@ export default function Home() {
               <WhyUs />
               <ProcessSteps />
               <Testimonials />
+              <RoiCalculator />
               <LeadForm />
             </main>
             <Chatbot />

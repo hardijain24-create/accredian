@@ -167,6 +167,91 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Visual Analytics Dashboard Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+          {/* Chart 1: Team Scale Distribution */}
+          <div className="lg:col-span-8 bg-white border border-border-neutral rounded-3xl p-6 shadow-editorial flex flex-col">
+            <div className="border-b border-border-neutral pb-3 mb-5 flex justify-between items-center">
+              <div>
+                <h3 className="text-sm font-heading font-bold text-text-dark uppercase tracking-widest">Team Scale Distribution</h3>
+                <p className="text-[10px] text-text-secondary font-body mt-0.5">Real-time count of upskilling requests classified by company size.</p>
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-wider text-accent-purple bg-accent-purple/5 px-2 py-0.5 rounded border border-accent-purple/20">
+                Inquiry Breakdown
+              </span>
+            </div>
+            <div className="flex items-end justify-between h-44 px-2 space-x-3 sm:space-x-6">
+              {(() => {
+                const sizeCategories = ["1-19", "20-99", "100-200", "201-1000", "1000+"];
+                const categoryCounts = sizeCategories.map(cat => ({
+                  category: cat,
+                  count: leads.filter(l => l.teamSize === cat).length
+                }));
+                const maxCountVal = Math.max(...categoryCounts.map(c => c.count), 1);
+
+                return categoryCounts.map(c => {
+                  const percent = (c.count / maxCountVal) * 100;
+                  return (
+                    <div key={c.category} className="flex-1 flex flex-col items-center group cursor-pointer">
+                      {/* Interactive Tooltip */}
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-text-dark text-white text-[9px] font-bold px-2 py-0.5 rounded-md mb-2 shadow-sm font-mono absolute -translate-y-9 border border-white/10 z-10">
+                        {c.count} leads
+                      </span>
+                      {/* Animated Bar */}
+                      <div className="w-full bg-bg-base border border-border-neutral rounded-2xl h-28 relative overflow-hidden flex items-end shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
+                        <div 
+                          className="w-full bg-gradient-to-t from-accent-purple to-accent-pink rounded-t-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                          style={{ height: `${percent}%` }}
+                        />
+                      </div>
+                      {/* X-axis Label */}
+                      <span className="text-[10px] text-text-secondary font-bold font-mono mt-3 leading-none group-hover:text-text-dark transition-colors">
+                        {c.category}
+                      </span>
+                    </div>
+                  );
+                });
+              })()}
+            </div>
+          </div>
+
+          {/* Chart 2: Leads Quality Gauge Card */}
+          <div className="lg:col-span-4 bg-white border border-border-neutral rounded-3xl p-6 shadow-editorial flex flex-col justify-between min-h-[220px]">
+            <div className="border-b border-border-neutral pb-3 mb-4">
+              <h3 className="text-sm font-heading font-bold text-text-dark uppercase tracking-widest">Inquiry Quality</h3>
+              <p className="text-[10px] text-text-secondary font-body mt-0.5">Ratio of high-value enterprise accounts.</p>
+            </div>
+            
+            <div className="flex-1 flex flex-col justify-center space-y-4">
+              <div>
+                <div className="flex justify-between items-center text-xs font-semibold mb-1.5">
+                  <span className="text-text-dark">Enterprise Ratio</span>
+                  <span className="font-mono text-accent-purple font-bold">
+                    {totalLeads > 0 ? Math.round((enterpriseLeads / totalLeads) * 100) : 0}%
+                  </span>
+                </div>
+                <div className="h-3 w-full bg-bg-base border border-border-neutral rounded-full overflow-hidden p-0.5">
+                  <div 
+                    className="h-full bg-gradient-to-r from-accent-purple to-accent-blue rounded-full transition-all duration-700 ease-out"
+                    style={{ width: `${totalLeads > 0 ? (enterpriseLeads / totalLeads) * 100 : 0}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 text-center font-mono">
+                <div className="p-3 bg-bg-base border border-border-neutral rounded-2xl">
+                  <p className="text-[8px] uppercase tracking-wider text-text-secondary font-bold">High Value</p>
+                  <p className="text-md font-bold text-text-dark mt-0.5">{enterpriseLeads}</p>
+                </div>
+                <div className="p-3 bg-bg-base border border-border-neutral rounded-2xl">
+                  <p className="text-[8px] uppercase tracking-wider text-text-secondary font-bold">Standard</p>
+                  <p className="text-md font-bold text-text-dark mt-0.5">{totalLeads - enterpriseLeads}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Search & Filter bar */}
         <div className="bg-white border border-border-neutral rounded-3xl p-4 shadow-editorial mb-6 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
           <div className="relative flex-1">
