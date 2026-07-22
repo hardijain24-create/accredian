@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-base: #FAFAF8;
+  --bg-card: #FFFFFF;
+  
+  --text-dark: #14161A;
+  --text-secondary: #6B7280;
+  --border-neutral: #F0F0F0;
+  
+  --accent-pink: #EC4899;
+  --accent-purple: #8B5CF6;
+  --accent-yellow: #F5C244;
+  --accent-blue: #3B82F6;
+  
+  /* Maintain mappings for existing components to prevent compiler errors */
+  --accent-lilac: #8B5CF6;
+  --accent-rose: #EC4899;
+  --accent-mint: #3B82F6;
+  --accent-gold: #F5C244;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-bg-base: var(--bg-base);
+  --color-bg-card: var(--bg-card);
+  --color-text-dark: var(--text-dark);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-neutral: var(--border-neutral);
+
+  --color-accent-pink: var(--accent-pink);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-blue: var(--accent-blue);
+
+  --color-accent-lilac: var(--accent-lilac);
+  --color-accent-rose: var(--accent-rose);
+  --color-accent-mint: var(--accent-mint);
+  --color-accent-gold: var(--accent-gold);
+
+  --font-heading: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E7EB;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+/* Editorial shadows */
+.shadow-editorial {
+  box-shadow: 0 4px 20px -2px rgba(20, 22, 26, 0.04),
+              0 2px 8px -1px rgba(20, 22, 26, 0.02);
+}
+.shadow-editorial-hover {
+  box-shadow: 0 12px 30px -4px rgba(20, 22, 26, 0.08),
+              0 4px 12px -2px rgba(20, 22, 26, 0.04);
+}
+
+/* Stepper progress indicator */
+.stepper-progress-fill {
+  transition: width 0.1s ease-out;
+}
+
+/* Preloader spinner keyframes */
+@keyframes spin-logo {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-spin-logo {
+  animation: spin-logo 2s infinite linear;
+}
+
+/* Shake animations for validations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+  animation: shake 0.35s ease-in-out;
+}
+
+/* Sheen sweep animation keyframe */
+@keyframes sheen-sweep {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(150%) skewX(-20deg); }
+}
+
+/* Hover Sheen Sweep */
+.animate-sheen-hover {
+  position: relative;
+  overflow: hidden;
+}
+.animate-sheen-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2) 50%, transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  pointer-events: none;
+}
+.animate-sheen-hover:hover::before {
+  animation: sheen-sweep 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Idle Loop Sheen Sweep */
+.animate-sheen-idle {
+  position: relative;
+  overflow: hidden;
+}
+.animate-sheen-idle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2) 50%, transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  animation: sheen-sweep 4s infinite ease-in-out;
+  pointer-events: none;
+}
+.animate-sheen-idle:hover::before {
+  animation: sheen-sweep 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Section Background Blobs (scoped) */
+.section-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+}
+
+/* Card Specular Shine (Slower, subtle sweep for white surfaces) */
+.card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.card-sheen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(20, 22, 26, 0.03) 50%, transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  pointer-events: none;
+}
+.card-sheen:hover::before {
+  animation: sheen-sweep 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Reduced motion accessibility overrides */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
