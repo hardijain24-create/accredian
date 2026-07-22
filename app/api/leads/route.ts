@@ -1,21 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
-
-const LEADS_FILE = path.join(process.cwd(), "data", "leads.json");
+import { getLeads } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
-    let leads = [];
-    try {
-      const data = await fs.readFile(LEADS_FILE, "utf-8");
-      leads = JSON.parse(data);
-    } catch (e) {
-      // Ignore if file doesn't exist, return empty array
-    }
+    // Get leads using resilient database manager
+    const leadsList = await getLeads();
 
-    // Sort leads by newest first
-    leads.sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    // Clone array and sort leads by newest first
+    const leads = [...leadsList].sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     return NextResponse.json({ success: true, leads });
   } catch (error) {

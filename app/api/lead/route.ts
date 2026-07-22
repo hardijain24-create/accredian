@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateLead } from "@/lib/validation";
-import fs from "fs/promises";
-import path from "path";
-
-const DATA_DIR = path.join(process.cwd(), "data");
-const LEADS_FILE = path.join(DATA_DIR, "leads.json");
+import { saveLead } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,22 +16,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Ensure the data directory exists
-    try {
-      await fs.mkdir(DATA_DIR, { recursive: true });
-    } catch (e) {
-      // Ignore if directory exists
-    }
-
-    // Read existing leads
-    let leads = [];
-    try {
-      const data = await fs.readFile(LEADS_FILE, "utf-8");
-      leads = JSON.parse(data);
-    } catch (e) {
-      // Ignore if file doesn't exist, start with empty list
-    }
-
     // Append new lead details
     const newLead = {
       id: crypto.randomUUID(),
@@ -47,10 +27,8 @@ export async function POST(req: NextRequest) {
       timestamp: new Date().toISOString(),
     };
 
-    leads.push(newLead);
-
-    // Save back to file
-    await fs.writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), "utf-8");
+    // Save lead using resilient filesystem/memory database helper
+    await saveLead(newLead);
 
     // Also log to console
     console.log("=========================================");
